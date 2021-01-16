@@ -21,13 +21,6 @@ jobs:
     container:
           image: 'elbeproject/debian-stretch'
 
-    steps:
-      - uses: actions/checkout@v2
-      - name: What OS is running
-        run: uname -a
-      - name: What java version do we have
-        run: java -version
-
 #      # Checkout code.
 #      - uses: actions/checkout@v1
 #        
@@ -59,14 +52,14 @@ jobs:
 #          sudo apt-get install elbe 
 #          sudo apt-get install libvirt-daemon-system
 #          sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
-#
-#
-#      - name: Elbe InitVM
-#        run: | 
-#          MY_USERID=$(whoami) 
-#          sudo adduser $MY_USERID libvirt 
-#          sudo adduser $MY_USERID libvirt-qemu 
-#          sudo adduser $MY_USERID kvm
-#          mkdir build 
-#          cd build 
-#          sudo elbe initvm create 
+
+
+      - name: Elbe InitVM
+        run: | 
+          MY_USERID=$(whoami) 
+          sudo adduser $MY_USERID libvirt 
+          sudo adduser $MY_USERID libvirt-qemu 
+          sudo adduser $MY_USERID kvm
+          mkdir build 
+          cd build 
+          sudo elbe initvm create 
