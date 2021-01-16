@@ -59,9 +59,9 @@ jobs:
       - name: Elbe InitVM
         run: | 
           MY_USERID=$(whoami) 
-          sudo adduser $MY_USERID libvirt 
-          sudo adduser $MY_USERID libvirt-qemu 
-          sudo adduser $MY_USERID kvm
+          adduser $MY_USERID libvirt 
+          adduser $MY_USERID libvirt-qemu 
+          adduser $MY_USERID kvm
           mkdir build 
           cd build 
-          sudo elbe initvm create 
+          elbe initvm create 
