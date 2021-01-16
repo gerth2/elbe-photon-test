@@ -44,10 +44,10 @@ jobs:
         run: | 
           wget -q -O - http://debian.linutronix.de/elbe-common/elbe-repo.pub | apt-key add - 
           apt-get update 
-          apt-get install elbe 
-          apt-get install libvirt-daemon-system
-          apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
-          apt-get install dirmngr
+          apt-get -y install elbe 
+          apt-get -y install libvirt-daemon-system
+          apt-get -y install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
+          apt-get -y install dirmngr
 
       - name: Let in all the leet haxors
         run: | 
