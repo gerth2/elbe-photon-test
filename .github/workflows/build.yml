@@ -18,49 +18,55 @@ jobs:
     name: Build the Pi Image
     # Set the type of machine to run on
     runs-on: ubuntu-latest
+    container:
+          image: 'elbeproject/debian-stretch'
 
     steps:
+      - uses: actions/checkout@v2
+      - name: What OS is running
+        run: uname -a
+      - name: What java version do we have
+        run: java -version
 
-      # Checkout code.
-      - uses: actions/checkout@v1
-        
-      - name: Add Elbe Debian Repository
-        uses: myci-actions/add-deb-repo@4
-        with:
-          repo: deb http://debian.linutronix.de/elbe buster main
-          repo-name: elbe
-          update: false
-
-      - name: Add Elbe Common Debian Repository
-        uses: myci-actions/add-deb-repo@4
-        with:
-          repo: http://debian.linutronix.de/elbe-common buster main
-          repo-name: elbe common
-          update: false
-
-      - name: Let in all the leet haxors
-        run: | 
-          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B48AD6246925553
-          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 04EE7237B7D453EC
-          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138
-          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DCC9EFBF77E11517
-
-      - name: Elbe and Friends Install With Keys
-        run: | 
-          sudo wget -q -O - http://debian.linutronix.de/elbe-common/elbe-repo.pub | sudo apt-key add - 
-          sudo apt-get update 
-          sudo apt-get install elbe 
-          sudo apt-get install libvirt-daemon-system
-          sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
-
-
-      - name: Elbe InitVM
-        run: | 
-          MY_USERID=$(whoami) 
-          sudo adduser $MY_USERID libvirt 
-          sudo adduser $MY_USERID libvirt-qemu 
-          sudo usermod -aG libvirt $MY_USERID 
-          sudo usermod -aG kvm $MY_USERID 
-          mkdir build 
-          cd build 
-          sudo elbe initvm create 
+#      # Checkout code.
+#      - uses: actions/checkout@v1
+#        
+#      - name: Add Elbe Debian Repository
+#        uses: myci-actions/add-deb-repo@4
+#        with:
+#          repo: deb http://debian.linutronix.de/elbe buster main
+#          repo-name: elbe
+#          update: false
+#
+#      - name: Add Elbe Common Debian Repository
+#        uses: myci-actions/add-deb-repo@4
+#        with:
+#          repo: http://debian.linutronix.de/elbe-common buster main
+#          repo-name: elbe common
+#          update: false
+#
+#      - name: Let in all the leet haxors
+#        run: | 
+#          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B48AD6246925553
+#          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 04EE7237B7D453EC
+#          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138
+#          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DCC9EFBF77E11517
+#
+#      - name: Elbe and Friends Install With Keys
+#        run: | 
+#          sudo wget -q -O - http://debian.linutronix.de/elbe-common/elbe-repo.pub | sudo apt-key add - 
+#          sudo apt-get update 
+#          sudo apt-get install elbe 
+#          sudo apt-get install libvirt-daemon-system
+#          sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
+#
+#
+#      - name: Elbe InitVM
+#        run: | 
+#          MY_USERID=$(whoami) 
+#          sudo adduser $MY_USERID libvirt 
+#          sudo adduser $MY_USERID libvirt-qemu 
+#          sudo adduser $MY_USERID kvm
+#          mkdir build 
+#          cd build 
+#          sudo elbe initvm create 
