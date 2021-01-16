@@ -1,7 +1,0 @@
-# action.yml
-name: 'Elbe Container'
-description: 'a thing'
-runs:
-  using: 'docker'
-  image: 'elbeproject/debian-stretch'
-

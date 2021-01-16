@@ -65,5 +65,4 @@ jobs:
           mkdir build 
           cd build 
           service libvirtd restart
-          /etc/init.d/libvirt restart
           elbe initvm create 
