@@ -40,13 +40,6 @@ jobs:
           repo-name: elbe common
           update: false
 
-      - name: Let in all the leet haxors
-        run: | 
-          apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B48AD6246925553
-          apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 04EE7237B7D453EC
-          apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138
-          apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DCC9EFBF77E11517
-
       - name: Elbe and Friends Install With Keys
         run: | 
           wget -q -O - http://debian.linutronix.de/elbe-common/elbe-repo.pub | apt-key add - 
@@ -54,7 +47,14 @@ jobs:
           apt-get install elbe 
           apt-get install libvirt-daemon-system
           apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
+          apt-get install dirmngr
 
+      - name: Let in all the leet haxors
+        run: | 
+          apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B48AD6246925553
+          apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 04EE7237B7D453EC
+          apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138
+          apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DCC9EFBF77E11517
 
       - name: Elbe InitVM
         run: | 
