@@ -38,14 +38,6 @@ jobs:
           repo-name: elbe common
           update: false
 
-      - name: Elbe Install With Keys
-        run: | 
-          sudo wget -q -O - http://debian.linutronix.de/elbe-common/elbe-repo.pub | sudo apt-key add - 
-          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B48AD6246925553
-          sudo apt-get update 
-          sudo apt-get install elbe 
-          sudo apt-get install libvirt-daemon-system
-        
       - name: Let in all the leet haxors
         run: | 
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B48AD6246925553
@@ -53,11 +45,22 @@ jobs:
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys DCC9EFBF77E11517
 
+      - name: Elbe and Friends Install With Keys
+        run: | 
+          sudo wget -q -O - http://debian.linutronix.de/elbe-common/elbe-repo.pub | sudo apt-key add - 
+          sudo apt-get update 
+          sudo apt-get install elbe 
+          sudo apt-get install libvirt-daemon-system
+          sudo apt-get install qemu-kvm libvirt-daemon-system libvirt-clients bridge-utils virtinst virt-manager
+
+
       - name: Elbe InitVM
         run: | 
           MY_USERID=$(whoami) 
           sudo adduser $MY_USERID libvirt 
           sudo adduser $MY_USERID libvirt-qemu 
+          sudo usermod -aG libvirt $MY_USERID 
+          sudo usermod -aG kvm $MY_USERID 
           mkdir build 
           cd build 
           sudo elbe initvm create 
