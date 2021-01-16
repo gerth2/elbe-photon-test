@@ -23,37 +23,30 @@ jobs:
 
       # Checkout code.
       - uses: actions/checkout@v1
-
-      #- name: Elbe Install Prep 
-      #  run: | 
-      #    sudo touch /etc/apt/sources.list.d/elbe.list 
-      #    sudo chmod 777 /etc/apt/sources.list.d/elbe.list 
-      #    sudo echo "deb http://debian.linutronix.de/elbe buster main" > /etc/apt/sources.list.d/elbe.list
-      #    sudo echo "deb http://debian.linutronix.de/elbe-common buster main" > /etc/apt/sources.list.d/elbe.list 
-      #    sudo wget -q -O - http://debian.linutronix.de/elbe-common/elbe-repo.pub | apt-key add - 
         
-      - name: add custom deb repository elbe
+      - name: Add Elbe Debian Repository
         uses: myci-actions/add-deb-repo@4
         with:
           repo: deb http://debian.linutronix.de/elbe buster main
           repo-name: elbe
           update: false
-      - name: add custom deb repository elbe common
+
+      - name: Add Elbe Common Debian Repository
         uses: myci-actions/add-deb-repo@4
         with:
           repo: http://debian.linutronix.de/elbe-common buster main
           repo-name: elbe common
           update: false
 
-
-      - name: Elbe Install
+      - name: Elbe Install With Keys
         run: | 
           sudo wget -q -O - http://debian.linutronix.de/elbe-common/elbe-repo.pub | sudo apt-key add - 
+          sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B48AD6246925553
           sudo apt-get update 
           sudo apt-get install elbe 
           sudo apt-get install libvirt-daemon-system
         
-      - name: InitVM Setup or something
+      - name: Elbe InitVM
         run: | 
           MY_USERID=$(whoami) 
           sudo adduser $MY_USERID libvirt 
