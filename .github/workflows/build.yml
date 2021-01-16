@@ -58,10 +58,6 @@ jobs:
 
       - name: Elbe InitVM
         run: | 
-          MY_USERID=$(whoami) 
-          adduser $MY_USERID libvirt 
-          adduser $MY_USERID libvirt-qemu 
-          adduser $MY_USERID kvm
           mkdir build 
           cd build 
           elbe initvm create 
