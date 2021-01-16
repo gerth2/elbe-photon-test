@@ -48,6 +48,7 @@ jobs:
         
       - name: Let in all the leet haxors
         run: | 
+          sudo chgrp kvm /dev/kvm
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 8B48AD6246925553
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 04EE7237B7D453EC
           sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 648ACFD622F3D138
