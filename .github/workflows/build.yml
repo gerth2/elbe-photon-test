@@ -21,9 +21,11 @@ jobs:
     container:
           image: 'elbeproject/debian-stretch'
 
-#      # Checkout code.
-#      - uses: actions/checkout@v1
-#        
+    steps:
+
+      # Checkout code.
+      - uses: actions/checkout@v1
+        
 #      - name: Add Elbe Debian Repository
 #        uses: myci-actions/add-deb-repo@4
 #        with:
